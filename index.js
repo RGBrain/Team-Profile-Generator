@@ -161,8 +161,20 @@ function addEngineer() {
     }
     if (data.additionalStaff === "I've finished adding staff") {
         console.log(`finish called`);
+        createPage();
     }
 })
+}
+
+function createPage() {
+  console.log(`createPage has been called`)
+  teamData = render(team);
+  fs.writeFile(outputPath, teamData, err => {
+    if (err) {
+      console.error(err);
+    }
+// console.log(`writeFile should have worked!`)
+});
 }
 
 // function call to initialize program
