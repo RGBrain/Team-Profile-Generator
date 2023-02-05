@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./src/page-template.js");
 
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
+// Gather information about the development team members, and render the HTML file.
 
 const team = [];
 
@@ -102,25 +102,21 @@ const internQuestions = [
     }
 ];
 
-
 // function to initialize program
 function init() {
     inquirer.prompt(mngrQuestions)
     .then(function(data){
-    console.log(`Thank you for entering those details for ${data.name}`);
     const mngr = new Manager(data.name, data.id, data.email, data.officeNumber)
-    console.log(mngr)
     team.push(mngr)
-    console.log(`The employee array is: ${team}`);
+
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
     if (data.additionalStaff === 'Add an engineer') {
-        console.log(`engineer called`);
         addEngineer();
     }
     if (data.additionalStaff === "I've finished adding staff") {
-        console.log(`finish called`);
+        createPage();
     }
 
     });
@@ -129,18 +125,16 @@ function init() {
 function addIntern() {
     inquirer.prompt(internQuestions)
     .then(function(data){
-    console.log(`Thank you for entering those details for ${data.name}`);
     const intern = new Intern(data.name, data.id, data.email, data.school)
     team.push(intern)
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
     if (data.additionalStaff === 'Add an engineer') {
-        console.log(`engineer called`);
         addEngineer();
     }
     if (data.additionalStaff === "I've finished adding staff") {
-        console.log(`finish called`);
+        createPage();
     }
 })
 }
@@ -148,10 +142,8 @@ function addIntern() {
 function addEngineer() {
     inquirer.prompt(engQuestions)
     .then(function(data){
-    console.log(`Thank you for entering those details for ${data.name}`);
     const eng = new Engineer(data.name, data.id, data.email, data.github)
     team.push(eng)
-    console.log(team)
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
@@ -166,14 +158,13 @@ function addEngineer() {
 })
 }
 
+//
 function createPage() {
-  console.log(`createPage has been called`)
   teamData = render(team);
   fs.writeFile(outputPath, teamData, err => {
     if (err) {
       console.error(err);
     }
-// console.log(`writeFile should have worked!`)
 });
 }
 
