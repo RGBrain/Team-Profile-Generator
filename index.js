@@ -4,17 +4,15 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const render = require("./src/page-template.js");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./src/page-template.js");
-
-
 // Gather information about the development team members, and render the HTML file.
-
 const team = [];
 
+// Manager question array for inquirer
 const mngrQuestions = [
     {
       type: "input",
@@ -44,6 +42,7 @@ const mngrQuestions = [
     }
 ];
 
+// Engineer question array for inquirer
 const engQuestions = [
     {
       type: "input",
@@ -73,6 +72,7 @@ const engQuestions = [
     }
 ];
 
+// Intern question array for inquirer
 const internQuestions = [
     {
       type: "input",
@@ -102,13 +102,15 @@ const internQuestions = [
     }
 ];
 
-// function to initialize program
+// Function to initialize program
 function init() {
+    // Use inquirer to ask questions on command line
     inquirer.prompt(mngrQuestions)
     .then(function(data){
+    // Create an instance of Manager and store answers
     const mngr = new Manager(data.name, data.id, data.email, data.officeNumber)
     team.push(mngr)
-
+    // Call one of 3 functions depending on the answer given
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
@@ -122,11 +124,15 @@ function init() {
     });
 }
 
+// Add Intern
 function addIntern() {
+    // Use inquirer to ask command-line questions
     inquirer.prompt(internQuestions)
     .then(function(data){
+    // Create instance of Intern and store responses
     const intern = new Intern(data.name, data.id, data.email, data.school)
     team.push(intern)
+    // Call one of the 3 functions below depending on user choice
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
@@ -138,29 +144,31 @@ function addIntern() {
     }
 })
 }
-
+// Add Engineer
 function addEngineer() {
     inquirer.prompt(engQuestions)
     .then(function(data){
+    // Create instance of Engineer and store responses as attributes
     const eng = new Engineer(data.name, data.id, data.email, data.github)
     team.push(eng)
+    // Call one of 3 functions depending on user response
     if (data.additionalStaff === 'Add an intern') {
         addIntern();
     }
     if (data.additionalStaff === 'Add an engineer') {
-        console.log(`engineer called`);
         addEngineer();
     }
     if (data.additionalStaff === "I've finished adding staff") {
-        console.log(`finish called`);
         createPage();
     }
 })
 }
 
-//
+// Create HTML page
 function createPage() {
+  // Create HTML
   teamData = render(team);
+  // Write HTML to file
   fs.writeFile(outputPath, teamData, err => {
     if (err) {
       console.error(err);
