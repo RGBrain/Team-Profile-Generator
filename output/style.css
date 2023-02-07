@@ -1,0 +1,33 @@
+.jumbotron {
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+#myVideo {
+    position: fixed;
+    top: 0;
+    /* right: 0;
+    bottom: 0; */
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+.card {
+    margin: 20px;
+    min-width: 240px;
+}
+
+#main-card-area {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+  .content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+  }
