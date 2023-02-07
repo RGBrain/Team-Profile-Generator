@@ -98,7 +98,7 @@ module.exports = team => {
 </head>
 
 <body>
-<video src="./images/80s_banner.mp4" muted autoplay loop></video>
+<video id="myVideo" src="./images/80s_banner.mp4" muted autoplay loop></video>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 jumbotron mb-3 team-heading">
@@ -108,7 +108,7 @@ module.exports = team => {
     </div>
     <div class="container">
         <div class="row">
-            <div class="team-area col-12 d-flex justify-content-center">
+            <div class="team-area col-12 d-flex justify-content-center" id="main-card-area">
                 ${generateTeam(team)}
             </div>
         </div>
