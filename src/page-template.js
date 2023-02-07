@@ -98,10 +98,11 @@ module.exports = team => {
 </head>
 
 <body>
+<video src="./images/80s_banner.mp4" muted autoplay loop></video>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+                <h1 class="text-center h1">My Team</h1>
             </div>
         </div>
     </div>
